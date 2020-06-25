@@ -1032,3 +1032,17 @@ li {
 .post + .post {
   border-top: 1px solid #eee;
 }
+
+.quotetop,
+.quotemain {
+  font-size: 10pt;
+  background-color: #eee;
+}
+
+.quotetop a {
+  display: none;
+}
+
+.quotemain {
+  font-style: italic;
+}
