@@ -1,0 +1,40 @@
+@use super::statics::*; @use crate::models::topics::Topic; @use
+crate::models::forums::Forum; @use crate::models::posts::Post; @use
+crate::{view, footer}; @(forum: &Forum, topic: &Topic, posts: &[Post])
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>UPSB v3 Archive | @topic.title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="/static/@main_css.name" />
+  </head>
+  <body>
+    <main>
+      <h1><a href="/">UPSB v3</a></h1>
+      <h2>
+        <a href="/forum/@topic.forum_id">@view::from_html(&forum.name)</a> /
+        @view::from_html(&topic.title)
+      </h2>
+      <p>@view::from_html(&topic.description)</p>
+
+      <ol>
+        @for post in posts {
+        <li class="post">
+          <header>
+            <span class="author">
+              <a href="/member/@post.author_id">@post.author_name</a></span
+            >
+            <div class="details">
+              Date: @view::epoch_to_datetime(post.post_date)
+            </div>
+          </header>
+          <p class="post-content">@view::from_html(&post.post)</p>
+        </li>
+        }
+      </ol>
+    </main>
+  </body>
+
+  @:footer()
+</html>

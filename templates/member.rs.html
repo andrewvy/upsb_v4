@@ -1,0 +1,22 @@
+@use super::statics::*; @use crate::footer; @use crate::models::members::Member;
+@(member: &Member)
+
+<!DOCTYPE html>
+<html lang="en" class="error">
+  <head>
+    <title>UPSB v3 Archive | @member.name</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="/static/@main_css.name" />
+  </head>
+  <body>
+    <main>
+      <h1><a href="/">UPSB v3</a></h1>
+
+      <div class="user">
+        <p>@member.name</p>
+      </div>
+    </main>
+  </body>
+
+  @:footer()
+</html>

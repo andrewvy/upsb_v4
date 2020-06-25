@@ -1,0 +1,21 @@
+@use super::statics::*; @use warp::http::StatusCode; @(code: StatusCode,
+message: &str)
+
+<!DOCTYPE html>
+<html lang="en" class="error">
+  <head>
+    <title>
+      Error @code.as_u16(): @code.canonical_reason().unwrap_or("error")
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="/static/@main_css.name" />
+  </head>
+  <body>
+    <main>
+      <h1><a href="/">UPSB v3</a></h1>
+      <h2>@code.canonical_reason().unwrap_or("error")</h2>
+
+      <p>@message</p>
+    </main>
+  </body>
+</html>

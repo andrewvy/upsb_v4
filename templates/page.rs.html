@@ -1,0 +1,30 @@
+@use super::statics::*; @use crate::models::forums::Forum; @use crate::view;
+@use crate::footer; @(forums: &[Forum])
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>UPSB v3 Archive</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="/static/@main_css.name" />
+  </head>
+  <body>
+    <main>
+      <h1>UPSB v3</h1>
+
+      <ol>
+        @for forum in forums {
+        <li>
+          <header>
+            <a href="/forum/@forum.id">@view::from_html(&forum.name)</a> |
+            Topics: @forum.topics | Posts: @forum.posts
+          </header>
+          <p>@view::from_html(&forum.description)</p>
+        </li>
+        }
+      </ol>
+    </main>
+  </body>
+
+  @:footer()
+</html>
