@@ -1005,10 +1005,17 @@ hr {
 :invalid:not(form):enabled:hover {
   border-color: var(--danger-hover-color);
 }
+
 ol,
 li {
   text-decoration: none;
   list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+li + li {
+  margin-top: 4px;
 }
 
 .description,
@@ -1030,13 +1037,14 @@ li {
 }
 
 .post + .post {
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--border-color);
 }
 
 .quotetop,
 .quotemain {
   font-size: 10pt;
-  background-color: #eee;
+  background-color: var(--highlighted-background-color);
+  padding: 4px;
 }
 
 .quotetop a {
