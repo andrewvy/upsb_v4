@@ -1,37 +1,38 @@
-@use super::statics::*; @use crate::models::topics::Topic; @use
+@use super::statics::*; @use crate::models::threads::Thread; @use
 crate::models::forums::Forum; @use crate::{view, footer}; @(forum: &Forum,
-topics: &[Topic])
+threads: &[Thread])
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>UPSB v3 Archive | @forum.name</title>
+    <title>UPSB v4 Archive | @forum.title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="/static/@main_css.name" />
   </head>
   <body>
     <main>
-      <h1><a href="/">UPSB v3</a></h1>
-      <h2>@view::from_html(&forum.name)</h2>
+      <h1><a href="/">UPSB v4</a></h1>
+      <h2>@view::from_html(&forum.title)</h2>
       <p>@view::from_html(&forum.description)</p>
 
       <ol>
-        @for topic in topics {
+        @for thread in threads {
         <li>
           <header>
-            <a href="/topic/@topic.tid">@view::decode(&topic.title)</a>
+            <a href="/thread/@thread.threadid">@view::decode(&thread.title)</a>
             <span class="author"
               >started by
-              <a href="/member/@topic.starter_id">@topic.starter_name</a></span
+              <a href="/member/@thread.postuserid"
+                >@thread.postusername</a
+              ></span
             >
             <span class="post-count">
-              (@topic.posts posts)
+              (@thread.replycount posts)
             </span>
             <div class="details">
-              Last Post: @view::epoch_to_datetime(topic.last_post)
+              Last Post: @view::epoch_to_datetime(thread.lastpost)
             </div>
           </header>
-          <p class="description">@view::from_html(&topic.description)</p>
         </li>
         }
       </ol>

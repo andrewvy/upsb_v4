@@ -7,6 +7,7 @@ use warp::{path, Filter, Rejection, Reply};
 
 use crate::templates::RenderRucte;
 
+mod bbcode;
 mod filters;
 mod handlers;
 mod models;
@@ -52,7 +53,7 @@ async fn main() -> Result<(), std::io::Error> {
 
     let pool = SqlitePool::builder()
         .max_size(4)
-        .build("sqlite://./upsb_v3.db")
+        .build("sqlite://./upsb_v4.db")
         .await
         .unwrap();
 
@@ -63,7 +64,7 @@ async fn main() -> Result<(), std::io::Error> {
                 .and_then(filters::home_page)
                 .or(filters::forum_filter(pool.clone()))
                 .or(filters::member_filter(pool.clone()))
-                .or(filters::topic_filter(pool.clone()))
+                .or(filters::thread_filter(pool.clone()))
                 .or(path("static")
                     .and(path::param())
                     .and_then(filters::static_file))

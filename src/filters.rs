@@ -48,9 +48,9 @@ pub fn forum_filter(
 
 async fn forum_handler(forum_id: i32, pool: SqlitePool) -> Result<impl Reply, Rejection> {
     let forum = models::forums::get(&pool, forum_id).await.unwrap();
-    let topics = models::topics::get_all(&pool, forum_id).await.unwrap();
+    let threads = models::threads::get_all(&pool, forum_id).await.unwrap();
 
-    Response::builder().html(|o| templates::forum(o, &forum, &topics))
+    Response::builder().html(|o| templates::forum(o, &forum, &threads))
 }
 
 pub fn member_filter(
@@ -69,20 +69,20 @@ async fn member_handler(member_id: i32, pool: SqlitePool) -> Result<impl Reply, 
     Response::builder().html(|o| templates::member(o, &member))
 }
 
-pub fn topic_filter(
+pub fn thread_filter(
     db: SqlitePool,
 ) -> impl Filter<Extract = impl Reply, Error = Rejection> + Clone {
-    warp::path!("topic" / i32)
+    warp::path!("thread" / i32)
         .and(with_db(db))
-        .and_then(topic_handler)
+        .and_then(thread_handler)
 }
 
-async fn topic_handler(topic_id: i32, pool: SqlitePool) -> Result<impl Reply, Rejection> {
-    let topic = models::topics::get(&pool, topic_id)
+async fn thread_handler(thread_id: i32, pool: SqlitePool) -> Result<impl Reply, Rejection> {
+    let thread = models::threads::get(&pool, thread_id)
         .await
         .map_err(|_| warp::reject::not_found())?;
-    let forum = models::forums::get(&pool, topic.forum_id).await.unwrap();
-    let posts = models::posts::get_all(&pool, topic_id).await.unwrap();
+    let forum = models::forums::get(&pool, thread.forumid).await.unwrap();
+    let posts = models::posts::get_all(&pool, thread_id).await.unwrap();
 
-    Response::builder().html(|o| templates::topic(o, &forum, &topic, &posts))
+    Response::builder().html(|o| templates::thread(o, &forum, &thread, &posts))
 }

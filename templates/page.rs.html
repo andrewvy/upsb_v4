@@ -4,20 +4,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>UPSB v3 Archive</title>
+    <title>UPSB v4 Archive</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="/static/@main_css.name" />
   </head>
   <body>
     <main>
-      <h1>UPSB v3</h1>
+      <h1>UPSB v4</h1>
 
       <ol>
         @for forum in forums {
         <li>
           <header>
-            <a href="/forum/@forum.id">@view::from_html(&forum.name)</a> |
-            Topics: @forum.topics | Posts: @forum.posts
+            <a href="/forum/@forum.forumid">@view::from_html(&forum.title)</a> |
+            threads: @forum.threadcount | Posts: @forum.replycount
           </header>
           <p>@view::from_html(&forum.description)</p>
         </li>

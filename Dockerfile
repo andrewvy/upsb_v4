@@ -6,7 +6,7 @@ FROM rust:1.43 as cargo-build
 
 RUN apt-get update
 
-WORKDIR /usr/src/upsb_three
+WORKDIR /usr/src/upsb_four
 
 COPY Cargo.toml Cargo.toml
 
@@ -16,7 +16,7 @@ RUN echo "fn main() {println!(\"if you see this, the build broke\")}" > src/main
 
 RUN cargo build --release
 
-RUN rm -f target/release/deps/upsb_three*
+RUN rm -f target/release/deps/upsb_four*
 
 COPY src ./src
 COPY build.rs .
@@ -33,6 +33,6 @@ FROM cargo-build
 
 VOLUME ["/data"]
 WORKDIR /data
-COPY --from=cargo-build /usr/src/upsb_three/target/release/upsb_three /home/upsb_three/bin
+COPY --from=cargo-build /usr/src/upsb_four/target/release/upsb_four /home/upsb_four/bin
 
-CMD ["/home/upsb_three/bin"]
+CMD ["/home/upsb_four/bin"]

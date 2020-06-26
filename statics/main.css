@@ -1054,3 +1054,11 @@ li + li {
 .quotemain {
   font-style: italic;
 }
+
+.mention {
+  color: var(--link-color);
+}
+
+.post-content {
+  white-space: pre-wrap;
+}
