@@ -20,9 +20,9 @@ fn code_replacer(captures: &Captures) -> String {
     format!("<pre><code>{}</code></pre>", replaced)
 }
 
-pub fn patterns() -> &'static [(Regex, &'static str); 28] {
+pub fn patterns() -> &'static [(Regex, &'static str); 29] {
     lazy_static! {
-      static ref  PATTERNS: [(Regex, &'static str); 28] = [
+      static ref  PATTERNS: [(Regex, &'static str); 29] = [
         // Font changes
         (Regex::new(r"(?s)\[b\](.*?)\[/b\]").unwrap(), "<strong>$1</strong>"),
         (Regex::new(r"(?si)\[i\](.*?)\[/i\]").unwrap(), "<em>$1</em>"),
@@ -49,6 +49,9 @@ pub fn patterns() -> &'static [(Regex, &'static str); 28] {
           "<a href=\"$1\" rel=\"nofollow\" target=\"_new\">$1</a>"),
         (Regex::new(r#"(?si)\[url="?([^\]]+)\]"?(.*?)\[/url\]"#).unwrap(),
           "<a href=\"$1\" rel=\"nofollow\" target=\"_new\">$2</a>"),
+        // Spoiler
+        (Regex::new(r"(?si)\[spoiler\](.*?)\[/spoiler\]").unwrap(),
+          "<details><summary>Spoiler</summary>$1</details>"),
         // Quotes
         (Regex::new(r"(?si)\[quote\](.*?)\[/quote\]").unwrap(),
           "<blockquote class=\"quote\">$1</blockquote>"),
